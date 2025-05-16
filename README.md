@@ -14,8 +14,7 @@ If you’re unsure how to test the solution for a specific day, don’t worry �
 
 ### 1. Install Rust
 
-If you don’t have Rust installed yet, download it here:  
-[Rust installation page](https://www.rust-lang.org/tools/install)
+If you don’t have Rust installed yet, download it here: [Rust installation page](https://www.rust-lang.org/tools/install)
 
 Follow the instructions to install Rust and Cargo (the Rust package manager).
 
