@@ -29,8 +29,7 @@ fn find_numbers_instructions(path: &str) -> Result<u64, Box<dyn Error>> {
         let sentence = &inputs[start..word.start()];
         let keyword = word.as_str();
         let partial_res = do_function(sentence, &mut calc, &regex)?;
-        if keyword == "don't()"
-        {
+        if keyword == "don't()" {
             calc = false;
         }
         result += partial_res;
