@@ -1,27 +1,36 @@
 use std::{error::Error, fs::read_to_string};
 
 fn check_xmas(i: usize, j: usize, matrix: &Vec<Vec<char>>) -> bool {
-    if i == 0 || i + 1 >= matrix.len() || j == 0 || j + 1 >= matrix[0].len() {
+    
+    if i == 0 || j == 0 || i + 1 >= matrix.len() || j + 1 >= matrix[0].len() {
         return false;
     }
 
-    let up_left = matrix[i - 1][j - 1];
-    let up_right = matrix[i - 1][j + 1];
-    let down_left = matrix[i + 1][j - 1];
-    let down_right = matrix[i + 1][j + 1];
-    let center = matrix[i][j];
+    if let (Some(row_above), Some(row_below)) = (matrix.get(i - 1), matrix.get(i + 1)) {
+        if let (
+            Some(top_left),    
+            Some(top_right),   
+            Some(bottom_left), 
+            Some(bottom_right) 
+        ) = (
+            row_above.get(j - 1),
+            row_above.get(j + 1),
+            row_below.get(j - 1),
+            row_below.get(j + 1),
+        ) {
 
-    let diag1 = (up_left, center, down_right);
-    let diag2 = (up_right, center, down_left);
+            let is_mas = |arr: [char; 3]| arr == ['M', 'A', 'S'] || arr == ['S', 'A', 'M'];
 
-    let diag1_valid = (diag1.0 == 'M' && diag1.1 == 'A' && diag1.2 == 'S')
-        || (diag1.0 == 'S' && diag1.1 == 'A' && diag1.2 == 'M');
+            let center = matrix[i][j];
+            let diag1 = [*top_left, center, *bottom_right];
+            let diag2 = [*top_right, center, *bottom_left];
 
-    let diag2_valid = (diag2.0 == 'M' && diag2.1 == 'A' && diag2.2 == 'S')
-        || (diag2.0 == 'S' && diag2.1 == 'A' && diag2.2 == 'M');
-
-    diag1_valid && diag2_valid
+            return is_mas(diag1) && is_mas(diag2);
+        }
+    }
+    false
 }
+
 
 fn find_diagonal(path: &str) -> Result<u32, Box<dyn Error>> {
     let mut count: u32 = 0;
