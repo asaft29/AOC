@@ -24,7 +24,7 @@ fn check_xmas(i: usize, j: usize, matrix: &Vec<Vec<char>>) -> bool {
             let diag1 = [*top_left, *bottom_right];
             let diag2 = [*top_right, *bottom_left];
 
-
+          
             return is_mas(diag1) && is_mas(diag2);
         }
     }
