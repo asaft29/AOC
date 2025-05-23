@@ -27,9 +27,14 @@ git clone https://github.com/asaft29/adventofcode.git
 
 cd adventofcode
 
-# Navigate to the day's directory
-cd day_01
+cd 2024
 
-# Run the solution
-cargo run day_01
+# Run the solution for the desired day
+cargo run --bin day_xx
+
 ```
+---
+
+### 3. Double check the input files!
+
+**Advent of code** has a different pool of puzzle inputs, so make sure you change my inputs with yours if they do not match.
