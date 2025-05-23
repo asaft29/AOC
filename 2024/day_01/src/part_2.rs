@@ -41,7 +41,7 @@ pub fn find_similar(file_name: &str, similar: &mut Similar) -> Result<i32, Box<d
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
     let mut sim = Similar::new();
-    let dist = find_similar("input.txt", &mut sim)?;
+    let dist = find_similar("day_01/src/input.txt", &mut sim)?;
     println!("Part 2 - {dist}");
     Ok(())
 }

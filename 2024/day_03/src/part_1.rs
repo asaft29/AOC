@@ -14,7 +14,7 @@ fn find_numbers(path: &str) -> Result<u64, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = find_numbers("input.txt")?;
+    let res = find_numbers("day_03/src/input.txt")?;
     println!("Part 1 - {res}");
     Ok(())
 }

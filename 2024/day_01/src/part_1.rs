@@ -40,7 +40,7 @@ fn find_dist(file_name: &str, values: &mut IDs) -> Result<i32, Box<dyn Error>> {
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
     let mut results = IDs::new();
-    let dist = find_dist("input.txt", &mut results)?;
+    let dist = find_dist("day_01/src/input.txt", &mut results)?;
     println!("Part 1 - {dist}");
     Ok(())
 }

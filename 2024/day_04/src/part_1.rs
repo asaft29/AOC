@@ -61,7 +61,7 @@ fn find_word(path: &str) -> Result<u32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = find_word("input.txt")?;
+    let res = find_word("day_04/src/input.txt")?;
     println!("Part 1 - {res}");
     Ok(())
 }
