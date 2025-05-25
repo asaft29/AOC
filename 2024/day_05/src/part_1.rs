@@ -1,6 +1,6 @@
 use std::{collections::HashMap, error::Error, fs::read_to_string};
 
-fn read_page_order(path: &str) -> Result<String, Box<dyn Error>> {
+pub fn read_page_order(path: &str) -> Result<String, Box<dyn Error>> {
     let result = read_to_string(path)?
         .lines()
         .take_while(|&line| !line.trim().is_empty())
@@ -10,7 +10,7 @@ fn read_page_order(path: &str) -> Result<String, Box<dyn Error>> {
     Ok(result)
 }
 
-fn read_page_rules(path: &str) -> Result<Vec<Vec<i32>>, Box<dyn Error>> {
+pub fn read_page_rules(path: &str) -> Result<Vec<Vec<i32>>, Box<dyn Error>> {
     let result = read_to_string(path)?
         .lines()
         .skip_while(|line| !line.trim().is_empty())
@@ -29,7 +29,7 @@ fn read_page_rules(path: &str) -> Result<Vec<Vec<i32>>, Box<dyn Error>> {
     Ok(vec)
 }
 
-fn add_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
+pub fn add_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut middle_number: i32 = 0;
     let mut hash_map: HashMap<i32, Vec<i32>> = HashMap::new();
 
