@@ -61,7 +61,9 @@ fn find_word(path: &str) -> Result<u32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = find_word("src/inputs/day_04.txt")?;
-    println!("Part 1 - {res}");
+    if let Some(valid) = aoc::absoulte_path("day_04.txt") {
+        let res = find_word(&valid)?;
+        println!("Part 1 - {res}");
+    }
     Ok(())
 }

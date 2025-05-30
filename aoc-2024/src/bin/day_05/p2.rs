@@ -2,9 +2,7 @@ use crate::p1;
 
 use std::{collections::HashMap, error::Error};
 
-
-
-// this works because input.txt is correct, if not i think Kahn's algorithm / topological sort 
+// this works because input.txt is correct, if not i think Kahn's algorithm / topological sort
 // should have been implemented for this
 
 pub fn add_wrong_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
@@ -68,7 +66,9 @@ pub fn add_wrong_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = add_wrong_middle_page_number("src/inputs/day_05.txt")?;
-    println!("Part 2 - {}", res);
+    if let Some(valid) = aoc::absoulte_path("day_05.txt") {
+        let res = add_wrong_middle_page_number(&valid)?;
+        println!("Part 2 - {}", res);
+    }
     Ok(())
 }

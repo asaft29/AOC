@@ -59,7 +59,9 @@ fn count_reports(file: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let reports = count_reports("src/inputs/day_02.txt")?;
-    println!("Part 1 - {reports}");
+    if let Some(valid) = aoc::absoulte_path("day_02.txt") {
+        let reports = count_reports(&valid)?;
+        println!("Part 1 - {reports}");
+    }
     Ok(())
 }

@@ -46,7 +46,9 @@ fn find_numbers_instructions(path: &str) -> Result<u64, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = find_numbers_instructions("src/inputs/day_03.txt")?;
-    println!("Part 2 - {res}");
+    if let Some(valid) = aoc::absoulte_path("day_03.txt") {
+        let res = find_numbers_instructions(&valid)?;
+        println!("Part 2 - {res}");
+    }
     Ok(())
 }

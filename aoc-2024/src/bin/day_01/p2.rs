@@ -40,7 +40,10 @@ pub fn find_similar(file_name: &str, similar: &mut Similar) -> Result<i32, Box<d
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
     let mut sim = Similar::new();
-    let dist = find_similar("src/inputs/day_01.txt", &mut sim)?;
-    println!("Part 2 - {dist}");
+
+    if let Some(valid) = aoc::absoulte_path("day_01.txt") {
+        let dist = find_similar(&valid, &mut sim)?;
+        println!("Part 2 - {dist}");
+    }
     Ok(())
 }

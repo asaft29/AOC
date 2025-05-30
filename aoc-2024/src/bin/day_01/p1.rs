@@ -40,7 +40,9 @@ fn find_dist(file_name: &str, values: &mut IDs) -> Result<i32, Box<dyn Error>> {
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
     let mut results = IDs::new();
-    let dist = find_dist("src/inputs/day_01.txt", &mut results)?;
-    println!("Part 1 - {dist}");
+    if let Some(valid_file) = aoc::absoulte_path("day_01.txt") {
+        let dist = find_dist(&valid_file, &mut results)?;
+        println!("Part 1 - {dist}");
+    }
     Ok(())
 }
