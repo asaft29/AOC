@@ -1,4 +1,5 @@
-use crate::part_1;
+use crate::p1;
+
 use std::{collections::HashMap, error::Error};
 
 
@@ -10,7 +11,7 @@ pub fn add_wrong_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
     let mut middle_number: i32 = 0;
     let mut hash_map: HashMap<i32, Vec<i32>> = HashMap::new();
 
-    let orders = part_1::read_page_order(path)?;
+    let orders = p1::read_page_order(path)?;
     for line in orders.lines() {
         let v = line.split("|").collect::<Vec<&str>>();
         if let (Some(key), Some(value)) = (v.get(0), v.get(1)) {
@@ -25,7 +26,7 @@ pub fn add_wrong_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
         vec.sort();
     }
 
-    let mut vec_rules = part_1::read_page_rules(path)?;
+    let mut vec_rules = p1::read_page_rules(path)?;
 
     for vec in vec_rules.iter_mut() {
         let mut is_wrong = false;
@@ -67,7 +68,7 @@ pub fn add_wrong_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = add_wrong_middle_page_number("day_05/src/input.txt")?;
+    let res = add_wrong_middle_page_number("src/inputs/day_05.txt")?;
     println!("Part 2 - {}", res);
     Ok(())
 }

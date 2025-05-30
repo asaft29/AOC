@@ -1,8 +1,10 @@
-mod part_1;
-mod part_2;
 use std::error::Error;
+
+mod p1;
+mod p2;
+
 fn main() -> Result<(), Box<dyn Error>> {
-    part_1::execute()?;
-    part_2::execute()?;
+    p1::execute()?;
+    p2::execute()?;
     Ok(())
 }

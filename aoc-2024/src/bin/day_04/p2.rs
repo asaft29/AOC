@@ -38,7 +38,7 @@ fn find_diagonal(path: &str) -> Result<u32, Box<dyn Error>> {
     Ok(count)
 }
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = find_diagonal("day_04/src/input.txt")?;
+    let res = find_diagonal("src/inputs/day_04.txt")?;
     println!("Part 2 - {res}");
     Ok(())
 }

@@ -75,7 +75,7 @@ pub fn add_middle_page_number(path: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let res = add_middle_page_number("day_05/src/input.txt")?;
+    let res = add_middle_page_number("src/inputs/day_05.txt")?;
     println!("Part 1 - {}", res);
     Ok(())
 }

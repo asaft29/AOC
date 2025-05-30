@@ -59,7 +59,7 @@ fn count_reports(file: &str) -> Result<i32, Box<dyn Error>> {
 }
 
 pub fn execute() -> Result<(), Box<dyn Error>> {
-    let reports = count_reports("day_02/src/input.txt")?;
+    let reports = count_reports("src/inputs/day_02.txt")?;
     println!("Part 1 - {reports}");
     Ok(())
 }
