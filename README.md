@@ -27,10 +27,10 @@ git clone https://github.com/asaft29/adventofcode.git
 
 cd adventofcode
 
-cd 2024
+cd aoc-2024
 
-# Run the solution for the desired day
-cargo run --bin day_xx
+# Run the solution for the desired day ( you can run the command from any folder inside the project)
+cargo run --bin day_xx 
 
 ```
 ---
