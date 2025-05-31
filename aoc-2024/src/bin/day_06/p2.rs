@@ -1,5 +1,7 @@
 use anyhow::Result;
 use std::collections::HashSet;
+use std::sync::{Mutex, Arc, atomic::{AtomicU32, Ordering}};
+use threadpool::ThreadPool;
 
 const DIRECTIONS: [(isize, isize); 4] = [(-1, 0), (0, 1), (1, 0), (0, -1)];
 
@@ -34,9 +36,12 @@ pub fn count_pos_cycles(mut i: usize, mut j: usize, matrix: &Vec<Vec<char>>) -> 
     false
 }
 
+
+// don't worry if u don't understand this, it is pretty complicated if u just started Rust 
+// long story short, i tried to have threads for each row so that the computation is faster
+
 pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
-    let mut cycles = 0;
-    let mut matrix: Vec<Vec<char>> = aoc::read_input_chars(path.as_ref())?;
+    let matrix= Arc::new(aoc::read_input_chars(path.as_ref())?);
 
     let r = matrix.len();
     let c = matrix[0].len();
@@ -54,26 +59,42 @@ pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
         pos
     };
 
-    for i in 0..r {
-        for j in 0..c {
-            if matrix[i][j] == '#' || (i, j) == (start_i, start_j) {
-                continue;
-            }
+    let counter = Arc::new(Mutex::new(0));
+    let pool = ThreadPool::new(r);
 
-            matrix[i][j] = '#';
-            if count_pos_cycles(start_i, start_j, &matrix) {
-                cycles += 1;
+    for i in 0..r {
+        let counter = Arc::clone(&counter);
+        let matrix_clone = Arc::clone(&matrix);
+        pool.execute(move || {
+            for j in 0..c {
+                if matrix_clone[i][j] == '#' || (i, j) == (start_i, start_j) {
+                    continue;
+                }
+
+                let mut local_matrix = matrix_clone.to_vec(); 
+                local_matrix[i] = matrix_clone[i].clone(); 
+                
+                local_matrix[i][j] = '#';
+
+                if count_pos_cycles(start_i, start_j, &local_matrix) {
+                    let mut lock = counter.lock().unwrap();
+                    *lock += 1;
+                }
             }
-            matrix[i][j] = '.';
-        }
+        });
     }
 
-    Ok(cycles)
+    pool.join();
+
+    let x = Ok(*counter.lock().map_err(|e| anyhow::anyhow!("Mutex poisoned! {}", e))?);
+    x
 }
+
+
 
 pub fn exec() -> Result<()> {
     if let Some(valid) = aoc::absoulte_path("day_06.txt") {
-        println!("It takes some time - will try to make it better with async...");
+        println!("It takes 5-6 seconds for the output to generate with threading");
         let res = find_cycles(&valid)?;
         println!("Part 2 - {res}");
     }
