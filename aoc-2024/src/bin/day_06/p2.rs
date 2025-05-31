@@ -1,6 +1,6 @@
 use anyhow::Result;
 use std::collections::HashSet;
-use std::sync::{Mutex, Arc, atomic::{AtomicU32, Ordering}};
+use std::sync::{Arc, atomic::{AtomicU32, Ordering}};
 use threadpool::ThreadPool;
 
 const DIRECTIONS: [(isize, isize); 4] = [(-1, 0), (0, 1), (1, 0), (0, -1)];
@@ -46,7 +46,6 @@ pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
     let r = matrix.len();
     let c = matrix[0].len();
 
-    // Find start position
     let (start_i, start_j) = {
         let mut pos = (0, 0);
         'outer: for i in 0..r {
