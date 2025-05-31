@@ -41,53 +41,52 @@ pub fn count_pos_cycles(mut i: usize, mut j: usize, matrix: &Vec<Vec<char>>) -> 
 // long story short, i tried to have threads for each row so that the computation is faster
 
 pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
-    let matrix= Arc::new(aoc::read_input_chars(path.as_ref())?);
+    let matrix = Arc::new(aoc::read_input_chars(path.as_ref())?);
 
     let r = matrix.len();
     let c = matrix[0].len();
 
+    // Find start position
     let (start_i, start_j) = {
         let mut pos = (0, 0);
-        for i in 0..r {
+        'outer: for i in 0..r {
             for j in 0..c {
                 if matrix[i][j] == '^' {
                     pos = (i, j);
-                    break;
+                    break 'outer;
                 }
             }
         }
         pos
     };
 
-    let counter = Arc::new(Mutex::new(0));
-    let pool = ThreadPool::new(r);
+    let counter = Arc::new(AtomicU32::new(0));
+    let pool = ThreadPool::new(r * c);
 
     for i in 0..r {
-        let counter = Arc::clone(&counter);
-        let matrix_clone = Arc::clone(&matrix);
-        pool.execute(move || {
-            for j in 0..c {
+        for j in 0..c {
+            let counter = Arc::clone(&counter);
+            let matrix_clone = Arc::clone(&matrix);
+            pool.execute(move || {
                 if matrix_clone[i][j] == '#' || (i, j) == (start_i, start_j) {
-                    continue;
+                    return;
                 }
 
-                let mut local_matrix = matrix_clone.to_vec(); 
-                local_matrix[i] = matrix_clone[i].clone(); 
-                
+                let mut local_matrix = matrix_clone.to_vec();
+                local_matrix[i] = matrix_clone[i].clone();
+
                 local_matrix[i][j] = '#';
 
                 if count_pos_cycles(start_i, start_j, &local_matrix) {
-                    let mut lock = counter.lock().unwrap();
-                    *lock += 1;
+                    counter.fetch_add(1, Ordering::Relaxed);
                 }
-            }
-        });
+            });
+        }
     }
 
     pool.join();
 
-    let x = Ok(*counter.lock().map_err(|e| anyhow::anyhow!("Mutex poisoned! {}", e))?);
-    x
+    Ok(counter.load(Ordering::Relaxed))
 }
 
 
