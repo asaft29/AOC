@@ -92,7 +92,6 @@ pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
 
 pub fn exec() -> Result<()> {
     if let Some(valid) = aoc::absoulte_path("day_06.txt") {
-        println!("It takes 5-6 seconds for the output to generate with threading");
         let res = find_cycles(&valid)?;
         println!("Part 2 - {res}");
     }
