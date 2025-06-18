@@ -1,25 +1,27 @@
 use anyhow::{anyhow, Result};
-use itertools::Itertools;
 use std::{fs::read_to_string, str::FromStr};
-struct Bridge {
-    left: Vec<u64>,
-    right: Vec<Vec<u64>>,
+pub struct Bridge {
+    pub left: Vec<u64>,
+    pub right: Vec<Vec<u64>>,
 }
 
-enum Op {
+#[derive(Copy, Clone)]
+pub enum Op {
     Add,
     Mul,
+    Concat,
+
 }
 
-fn apply(op: &Op, a: u64, b: u64) -> u64 {
+fn apply(op: &Op, a: u64, b: u64) -> Option<u64> {
     match op {
-        Op::Add => a + b,
-        Op::Mul => a * b,
+        Op::Add => a.checked_add(b),
+        Op::Mul => a.checked_mul(b),
+        _ => a.checked_add(b),  
     }
 }
 
 // trying to get used to important traits
-
 impl FromStr for Bridge {
     type Err = anyhow::Error;
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
@@ -45,23 +47,20 @@ impl FromStr for Bridge {
 }
 
 fn is_valid(target: u64, values: &[u64]) -> bool {
-    if values.is_empty() {
-        return false;
-    }
-
-    let ops = [Op::Add, Op::Mul];
-    let n = values.len() - 1;
-
-    for op_sequence in std::iter::repeat(ops.iter())
-        .take(n)
-        .multi_cartesian_product()
-    {
-        let mut acc = values[0];
-        for (i, op) in op_sequence.into_iter().enumerate() {
-            acc = apply(op, acc, values[i + 1]);
+    let mut stack = vec![(values[0], 0)];  
+    
+    while let Some((acc, i)) = stack.pop() {
+        if i == values.len() - 1 {
+            if acc == target { return true; }
+            continue;
         }
-        if acc == target {
-            return true;
+        
+        for op in [Op::Add, Op::Mul, Op::Concat] {
+            if let Some(val) = apply(&op, acc, values[i+1]) {
+                if val <= target {
+                    stack.push((val, i+1));
+                }
+            }
         }
     }
     false
