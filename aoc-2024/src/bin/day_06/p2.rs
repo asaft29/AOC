@@ -1,6 +1,9 @@
 use anyhow::Result;
 use std::collections::HashSet;
-use std::sync::{Arc, atomic::{AtomicU32, Ordering}};
+use std::sync::{
+    atomic::{AtomicU32, Ordering},
+    Arc,
+};
 use threadpool::ThreadPool;
 
 const DIRECTIONS: [(isize, isize); 4] = [(-1, 0), (0, 1), (1, 0), (0, -1)];
@@ -36,8 +39,7 @@ pub fn count_pos_cycles(mut i: usize, mut j: usize, matrix: &Vec<Vec<char>>) -> 
     false
 }
 
-
-// don't worry if u don't understand this, it is pretty complicated if u just started Rust 
+// don't worry if u don't understand this, it is pretty complicated if u just started Rust
 // long story short, i tried to have threads for each row so that the computation is faster
 
 pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
@@ -87,8 +89,6 @@ pub fn find_cycles(path: impl AsRef<str>) -> Result<u32> {
 
     Ok(counter.load(Ordering::Relaxed))
 }
-
-
 
 pub fn exec() -> Result<()> {
     if let Some(valid) = aoc::absoulte_path("day_06.txt") {
