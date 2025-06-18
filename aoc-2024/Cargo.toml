@@ -1,0 +1,117 @@
+[package]
+name = "aoc-2024"
+version = "0.1.0"
+edition = "2021"
+
+
+[lib]
+name = "aoc"
+path = "src/lib.rs"
+
+[[bin]]
+name = "day_01"
+path = "src/bin/day_01/main.rs"
+
+[[bin]]
+name = "day_02"
+path = "src/bin/day_02/main.rs"
+
+[[bin]]
+name = "day_03"
+path = "src/bin/day_03/main.rs"
+
+[[bin]]
+name = "day_04"
+path = "src/bin/day_04/main.rs"
+
+[[bin]]
+name = "day_05"
+path = "src/bin/day_05/main.rs"
+
+[[bin]]
+name = "day_06"
+path = "src/bin/day_06/main.rs"
+
+[[bin]]
+name = "day_07"
+path = "src/bin/day_07/main.rs"
+
+# [[bin]]
+# name = "day_08"
+# path = "src/bin/day_08/main.rs"
+
+# [[bin]]
+# name = "day_09"
+# path = "src/bin/day_09/main.rs"
+
+# [[bin]]
+# name = "day_10"
+# path = "src/bin/day_10/main.rs"
+
+# [[bin]]
+# name = "day_11"
+# path = "src/bin/day_11/main.rs"
+
+# [[bin]]
+# name = "day_12"
+# path = "src/bin/day_12/main.rs"
+
+# [[bin]]
+# name = "day_13"
+# path = "src/bin/day_13/main.rs"
+
+# [[bin]]
+# name = "day_14"
+# path = "src/bin/day_14/main.rs"
+
+# [[bin]]
+# name = "day_15"
+# path = "src/bin/day_15/main.rs"
+
+# [[bin]]
+# name = "day_16"
+# path = "src/bin/day_16/main.rs"
+
+# [[bin]]
+# name = "day_17"
+# path = "src/bin/day_17/main.rs"
+
+# [[bin]]
+# name = "day_18"
+# path = "src/bin/day_18/main.rs"
+
+# [[bin]]
+# name = "day_19"
+# path = "src/bin/day_19/main.rs"
+
+# [[bin]]
+# name = "day_20"
+# path = "src/bin/day_20/main.rs"
+
+# [[bin]]
+# name = "day_21"
+# path = "src/bin/day_21/main.rs"
+
+# [[bin]]
+# name = "day_22"
+# path = "src/bin/day_22/main.rs"
+
+# [[bin]]
+# name = "day_23"
+# path = "src/bin/day_23/main.rs"
+
+# [[bin]]
+# name = "day_24"
+# path = "src/bin/day_24/main.rs"
+
+# [[bin]]
+# name = "day_25"
+# path = "src/bin/day_25/main.rs"
+
+
+[dependencies]
+anyhow = "1.0.98"
+lazy_static = "1.5.0"
+phf = "0.11.3"
+regex = "1.11.1"
+threadpool = "1.8.1"
