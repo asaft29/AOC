@@ -36,9 +36,9 @@ path = "src/bin/day_06/main.rs"
 name = "day_07"
 path = "src/bin/day_07/main.rs"
 
-# [[bin]]
-# name = "day_08"
-# path = "src/bin/day_08/main.rs"
+[[bin]]
+name = "day_08"
+path = "src/bin/day_08/main.rs"
 
 # [[bin]]
 # name = "day_09"
@@ -111,6 +111,7 @@ path = "src/bin/day_07/main.rs"
 
 [dependencies]
 anyhow = "1.0.98"
+itertools = "0.14.0"
 lazy_static = "1.5.0"
 phf = "0.11.3"
 regex = "1.11.1"

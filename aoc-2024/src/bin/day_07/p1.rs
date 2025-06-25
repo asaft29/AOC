@@ -10,14 +10,13 @@ pub enum Op {
     Add,
     Mul,
     Concat,
-
 }
 
 fn apply(op: &Op, a: u64, b: u64) -> Option<u64> {
     match op {
         Op::Add => a.checked_add(b),
         Op::Mul => a.checked_mul(b),
-        _ => a.checked_add(b),  
+        _ => a.checked_add(b),
     }
 }
 
@@ -47,18 +46,20 @@ impl FromStr for Bridge {
 }
 
 fn is_valid(target: u64, values: &[u64]) -> bool {
-    let mut stack = vec![(values[0], 0)];  
-    
+    let mut stack = vec![(values[0], 0)];
+
     while let Some((acc, i)) = stack.pop() {
         if i == values.len() - 1 {
-            if acc == target { return true; }
+            if acc == target {
+                return true;
+            }
             continue;
         }
-        
+
         for op in [Op::Add, Op::Mul, Op::Concat] {
-            if let Some(val) = apply(&op, acc, values[i+1]) {
+            if let Some(val) = apply(&op, acc, values[i + 1]) {
                 if val <= target {
-                    stack.push((val, i+1));
+                    stack.push((val, i + 1));
                 }
             }
         }
