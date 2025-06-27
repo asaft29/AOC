@@ -16,7 +16,7 @@ impl FromStr for Freq {
     fn from_str(s: &str) -> std::result::Result<Self, Self::Err> {
         match aoc::absoulte_path(s) {
             Some(valid) => {
-                let input = aoc::read_input_chars(valid)?;
+                let input = aoc::read_input_chars(valid).map_err(|_| anyhow!("The file path is not correct!"))?;
                 let mut hm: HashMap<char, Vec<(isize, isize)>> = HashMap::new();
                 for i in 0..input.len() {
                     for j in 0..input[0].len() {

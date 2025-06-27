@@ -41,7 +41,7 @@ impl Freq {
 fn find_antinodes(path: &str) -> Result<usize> {
     match Freq::from_str(path) {
         Ok(freq) => Ok(freq.get_antinodes()),
-        Err(e) => return Err(e),
+        Err(e) => Err(e),
     }
 }
 pub fn execute() -> Result<()> {
