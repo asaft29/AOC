@@ -1,11 +1,14 @@
 use anyhow::{anyhow, Result};
 use itertools::Itertools;
-use std::{collections::{BTreeSet, HashMap}, str::FromStr};
+use std::{
+    collections::{BTreeSet, HashMap},
+    str::FromStr,
+};
 
 #[derive(Debug)]
-struct Freq {
+pub struct Freq {
     grid: Vec<Vec<char>>,
-    frequency_map: HashMap<char, Vec<(isize, isize)>>,
+    pub frequency_map: HashMap<char, Vec<(isize, isize)>>,
 }
 
 impl FromStr for Freq {
@@ -18,7 +21,9 @@ impl FromStr for Freq {
                 for i in 0..input.len() {
                     for j in 0..input[0].len() {
                         if input[i][j].is_alphanumeric() {
-                            hm.entry(input[i][j]).or_insert_with(Vec::new).push((i as isize, j as isize));
+                            hm.entry(input[i][j])
+                                .or_insert_with(Vec::new)
+                                .push((i as isize, j as isize));
                         }
                     }
                 }
@@ -33,7 +38,7 @@ impl FromStr for Freq {
 }
 
 impl Freq {
-    fn check_dif(&self, i: isize, j: isize) -> bool {
+    pub fn check_dif(&self, i: isize, j: isize) -> bool {
         i >= 0 && i < self.grid.len() as isize && j >= 0 && j < self.grid[0].len() as isize
     }
 
@@ -60,7 +65,7 @@ impl Freq {
     }
 }
 
-fn find_antennas(path : &str) -> Result<usize> {
+fn find_antennas(path: &str) -> Result<usize> {
     let freq = Freq::from_str(path)?;
     Ok(freq.unique_antenna_spot())
 }
@@ -71,10 +76,10 @@ pub fn execute() -> Result<()> {
     Ok(())
 }
 
-// made this to verify if my method worked on the simple example 
+// made this to verify if my method worked on the simple example
 #[test]
 fn test_antenna() {
-    if let Ok(antenna) = find_antennas("day_08/test.txt") {
+    if let Ok(antenna) = find_antennas("day_08/test_p1.txt") {
         assert_eq!(antenna, 14);
     }
 }
